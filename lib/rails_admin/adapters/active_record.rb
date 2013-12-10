@@ -41,6 +41,7 @@ module RailsAdmin
         scope = scope.limit(options[:limit]) if options[:limit]
         scope = scope.where(model.primary_key => options[:bulk_ids]) if options[:bulk_ids]
         scope = query_scope(scope, options[:query]) if options[:query]
+		model.before_query(options[:query]) if options[:query] and model.respond_to?(:before_query)
         scope = filter_scope(scope, options[:filters]) if options[:filters]
         if options[:page] && options[:per]
           scope = scope.send(Kaminari.config.page_method_name, options[:page]).per(options[:per])
