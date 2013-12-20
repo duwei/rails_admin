@@ -19,13 +19,6 @@ module RailsAdmin
 
             attr_reader :format, :i18n_scope, :js_plugin_options
 
-            def value
-              value_in_default_time_zone = bindings[:object].send(name)
-              return nil if value_in_default_time_zone.nil?
-              pacific_time_zone = ActiveSupport::TimeZone.new('Asia/Shanghai')
-              value_in_default_time_zone.in_time_zone(pacific_time_zone)
-            end
-
             def normalize(date_string, format)
               unless I18n.locale == "en"
                 format.to_s.scan(/%[AaBbp]/) do |match|
