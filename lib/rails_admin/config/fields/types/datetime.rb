@@ -31,10 +31,12 @@ module RailsAdmin
                     abbr_day_names.each_with_index {|d, i| date_string = date_string.gsub(/#{d}/, english[i]) }
                   when '%B'
                     english = I18n.t('date.month_names', :locale => :en)[1..-1]
-                    month_names.each_with_index {|m, i| date_string = date_string.gsub(/#{m}/, english[i]) }
+                    #month_names.each_with_index {|m, i| date_string = date_string.gsub(/#{m}/, english[i]) }
+                    month_names.to_enum.with_index.reverse_each {|m, i| date_string = date_string.gsub(/#{m}/, english[i]) }
                   when '%b'
                     english = I18n.t('date.abbr_month_names', :locale => :en)[1..-1]
-                    abbr_month_names.each_with_index {|m, i| date_string = date_string.gsub(/#{m}/, english[i]) }
+                    #abbr_month_names.each_with_index {|m, i| date_string = date_string.gsub(/#{m}/, english[i]) }
+                    abbr_month_names.to_enum.with_index.reverse_each {|m, i| date_string = date_string.gsub(/#{m}/, english[i]) }
                   when '%p'
                     date_string = date_string.gsub(/#{I18n.t('date.time.am', :default => "am")}/, "am")
                     date_string = date_string.gsub(/#{I18n.t('date.time.pm', :default => "pm")}/, "pm")
